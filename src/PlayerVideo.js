@@ -1,13 +1,15 @@
-import PlayerAudio from './PlayerAudio.js';
+var PlayerAudio = require('./PlayerAudio.js').PlayerAudio;
 
 class PlayerVideo extends PlayerAudio 
 {
     createMedia() 
     {
         var v = document.createElement('video');
-        if (this.settings.wrapperId) {
-            document.getElementById(this.settings.wrapperId).append(v);
-        }
+        var wrapper = this.settings.wrapperId ?
+            document.getElementById(this.settings.wrapperId) :
+            document.body;
+            
+        wrapper.append(v);
         return v;
     }
 }
@@ -17,4 +19,4 @@ PlayerVideo.prototype.defaults =
     wrapperId: null
 };
 
-export default PlayerVideo;
+module.exports.PlayerVideo = PlayerVideo;

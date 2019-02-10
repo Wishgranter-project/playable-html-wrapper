@@ -1,5 +1,4 @@
-import Player from './Player.js';
-import loadExternalJs from './functions.js';
+var Player = require('@adinan-cenci/js-multimedia-player').Player;
 
 class PlayerAudio extends Player 
 {
@@ -38,7 +37,11 @@ class PlayerAudio extends Player
     {
         this.data = data;
         this.newSource(data.file);
-        this.mediaP.play();
+
+        return new Promise((success, fail) => 
+        {
+            success();
+        });
     }
 
     play(time = this.currentTime) 
@@ -117,5 +120,4 @@ class PlayerAudio extends Player
 }
 
 PlayerAudio.prototype.defaults = {};
-
-export default PlayerAudio;
+module.exports.PlayerAudio = PlayerAudio;

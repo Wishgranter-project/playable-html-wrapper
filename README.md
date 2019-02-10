@@ -1,1 +1,1 @@
-This is the interface for multi media players.
+This is wrapper for html multimedia players
