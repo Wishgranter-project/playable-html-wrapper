@@ -1,8 +1,8 @@
-var Player = require('@adinan-cenci/js-multimedia-player').Player;
+var Player = require('multimedia-player');
 
-class PlayerAudio extends Player 
+class PlayerAudio extends Player
 {
-    constructor(settings = null) 
+    constructor(settings = null)
     {
         super();
 
@@ -23,47 +23,47 @@ class PlayerAudio extends Player
         this.mediaP.addEventListener('waiting',     this.evtWaiting.bind(this));
     }
 
-    createMedia() 
+    createMedia()
     {
         return new Audio();
     }
 
-    get duration() 
+    get duration()
     {
         return this.mediaP.duration;
     }
 
-    setData(data) 
+    setData(data)
     {
         this.data = data;
         this.newSource(data.file);
 
-        return new Promise((success, fail) => 
+        return new Promise((success, fail) =>
         {
             success();
         });
     }
 
-    play(time = this.currentTime) 
+    play(time = this.currentTime)
     {
         this.setCurrentTime(time);
         return this.mediaP.play();
     }
 
-    pause() 
+    pause()
     {
         this.mediaP.pause();
     }
 
-    setCurrentTime(time) 
+    setCurrentTime(time)
     {
         var seconds = this.sanitizeGetSeconds(time);
         this.mediaP.currentTime = seconds;
     }
 
-    setVolume(value) 
+    setVolume(value)
     {
-        if (value > 1 && value < 10) { 
+        if (value > 1 && value < 10) {
             value /= 10
         } else if (value >= 10) {
             value /= 100
@@ -72,28 +72,28 @@ class PlayerAudio extends Player
         this.mediaP.volume = value;
     }
 
-    newSource(source) 
+    newSource(source)
     {
         this.mediaP.pause();
-        
+
         this.source = source;
         this.mediaP.src = source;
     }
 
-    evtPause(evt) 
+    evtPause(evt)
     {
         this.paused         = true;
         this.reproducing    = false;
         this.playing        = false;
     }
 
-    evtPlay(evt) 
+    evtPlay(evt)
     {
         this.paused         = false;
         this.playing        = true;
     }
 
-    evtEnded(evt) 
+    evtEnded(evt)
     {
         this.playing        = false;
         this.paused         = false;
@@ -101,23 +101,23 @@ class PlayerAudio extends Player
         this.onEnded(evt);
     }
 
-    evtTimeupdate(evt) 
+    evtTimeupdate(evt)
     {
         this.reproducing    = true;
         this.currentTime    = this.mediaP.currentTime;
         this.onTimeupdate(evt);
     }
 
-    evtError(evt) 
+    evtError(evt)
     {
         this.onError();
     }
 
-    evtWaiting(evt) 
+    evtWaiting(evt)
     {
         this.reproducing = false;
     }
 }
 
 PlayerAudio.prototype.defaults = {};
-module.exports.PlayerAudio = PlayerAudio;
+module.exports = PlayerAudio;

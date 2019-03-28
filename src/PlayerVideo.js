@@ -1,22 +1,22 @@
-var PlayerAudio = require('./PlayerAudio.js').PlayerAudio;
+var PlayerAudio = require('./PlayerAudio.js');
 
-class PlayerVideo extends PlayerAudio 
+class PlayerVideo extends PlayerAudio
 {
-    createMedia() 
+    createMedia()
     {
         var v = document.createElement('video');
         var wrapper = this.settings.wrapperId ?
             document.getElementById(this.settings.wrapperId) :
             document.body;
-            
+
         wrapper.append(v);
         return v;
     }
 }
 
-PlayerVideo.prototype.defaults = 
+PlayerVideo.prototype.defaults =
 {
     wrapperId: null
 };
 
-module.exports.PlayerVideo = PlayerVideo;
+module.exports = PlayerVideo;
