@@ -15,12 +15,23 @@ class PlayerAudio extends Player
         this.currentTime    = 0;
         this.mediaP         = this.createMedia();
         this.source         = null;
-        this.mediaP.addEventListener('play',        this.evtPlay.bind(this));
-        this.mediaP.addEventListener('pause',       this.evtPause.bind(this));
-        this.mediaP.addEventListener('timeupdate',  this.evtTimeupdate.bind(this));
-        this.mediaP.addEventListener('ended',       this.evtEnded.bind(this));
-        this.mediaP.addEventListener('error',       this.evtError.bind(this));
-        this.mediaP.addEventListener('waiting',     this.evtWaiting.bind(this));
+        this.mediaP.addEventListener('play',            this.evtPlay.bind(this));
+        this.mediaP.addEventListener('pause',           this.evtPause.bind(this));
+        this.mediaP.addEventListener('timeupdate',      this.evtTimeupdate.bind(this));
+        this.mediaP.addEventListener('ended',           this.evtEnded.bind(this));
+        this.mediaP.addEventListener('error',           this.evtError.bind(this));
+        this.mediaP.addEventListener('loadstart',       this.evtLoadStart.bind(this)); // start to load resource
+        this.mediaP.addEventListener('progress',        this.evtProgress.bind(this)); // fires as it loads the resource
+        this.mediaP.addEventListener('waiting',         this.evtWaiting.bind(this)); // stoped for buffering
+        this.mediaP.addEventListener('canplaythrough',  this.evtCanPlayThrough.bind(this));
+        this.mediaP.addEventListener('canplay',         this.evtCanPlay.bind(this));
+        this.mediaP.addEventListener('suspend',         this.evtSuspend.bind(this)); // not loaded, maybe becaus loading is finished
+        this.mediaP.addEventListener('abort',           this.evtAbort.bind(this)); // not fully loaded, but not an error
+        this.mediaP.addEventListener('stalled',         this.evtStalled.bind(this)); // Failed to fetch data, but trying
+        //loadeddata
+        //seeking
+        //seeked
+        //durationchange
     }
 
     createMedia()
@@ -31,6 +42,11 @@ class PlayerAudio extends Player
     get duration()
     {
         return this.mediaP.duration;
+    }
+
+    get buffered()
+    {
+        return this.mediaP.buffered;
     }
 
     setData(data)
@@ -74,31 +90,11 @@ class PlayerAudio extends Player
 
     newSource(source)
     {
-        this.mediaP.pause();
+        this.pause();
 
-        this.source = source;
+        this.source     = source;
         this.mediaP.src = source;
-    }
-
-    evtPause(evt)
-    {
-        this.paused         = true;
-        this.reproducing    = false;
-        this.playing        = false;
-    }
-
-    evtPlay(evt)
-    {
-        this.paused         = false;
-        this.playing        = true;
-    }
-
-    evtEnded(evt)
-    {
-        this.playing        = false;
-        this.paused         = false;
-        this.reproducing    = false;
-        this.onEnded(evt);
+        //this.mediaP.load();
     }
 
     evtTimeupdate(evt)
@@ -108,15 +104,90 @@ class PlayerAudio extends Player
         this.onTimeupdate(evt);
     }
 
+    evtPause(evt)
+    {
+        this.playing        = false;
+        this.paused         = true;
+        this.reproducing    = false;
+        this.onStateChange();
+    }
+
+    evtPlay(evt)
+    {
+        this.paused         = false;
+        this.playing        = true;
+        this.waiting        = false;
+        this.onStateChange();
+    }
+
+    evtEnded(evt)
+    {
+        this.playing        = false;
+        this.paused         = true;
+        this.reproducing    = false;
+        this.waiting        = false;
+        this.onEnded(evt);
+        this.onStateChange();
+    }
+
     evtError(evt)
     {
         this.onError();
     }
 
+    evtLoadStart(evt)
+    {
+        this.buffering      = true;
+        this.onStateChange();
+    }
+
+    evtProgress(evt)
+    {
+        this.buffering      = true;
+        this.onStateChange();
+    }
+
     evtWaiting(evt)
     {
-        this.reproducing = false;
+        this.reproducing    = false;
+        this.buffering      = true;
+        this.waiting        = true;
+        this.onStateChange();
     }
+
+    evtCanPlayThrough(evt)
+    {
+        this.buffering      = false;
+        this.waiting        = false;
+        this.onStateChange();
+    }
+
+    evtCanPlay(evt)
+    {
+        this.buffering      = false;
+        this.waiting        = false;
+        this.onStateChange();
+    }
+
+    evtSuspend(evt)
+    {
+        this.buffering      = false;
+        this.onStateChange();
+    }
+
+    evtAbort(evt)
+    {
+        this.buffering      = false;
+        this.onStateChange();
+    }
+
+    evtStalled()
+    {
+        this.buffering      = false;
+        this.onStateChange();
+    }
+
+    onStateChange() {}
 }
 
 PlayerAudio.prototype.defaults = {};
