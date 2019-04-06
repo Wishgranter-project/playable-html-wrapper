@@ -1,5 +1,5 @@
 {
-  "name": "multimedia-wrapper",
+  "name": "html-multimedia-wrapper",
   "version": "1.0.0",
   "description": "This is wrapper for html multimedia players.",
   "main": "index.js",
