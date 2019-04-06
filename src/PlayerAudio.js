@@ -94,7 +94,8 @@ class PlayerAudio extends Player
 
         this.source     = source;
         this.mediaP.src = source;
-        //this.mediaP.load();
+        this.mediaP.load();
+        this.waiting    = true;
     }
 
     evtTimeupdate(evt)
