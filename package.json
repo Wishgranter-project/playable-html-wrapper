@@ -21,10 +21,10 @@
   },
   "homepage": "https://github.com/adinan-cenci/js-html-multimedia-wrapper#readme",
   "devDependencies": {
-    "webpack": "^4.29.3",
-    "webpack-cli": "^3.2.3"
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.6"
   },
   "dependencies": {
-    "multimedia-player": "github:adinan-cenci/js-multimedia-player"
+    "multimedia-player-interface": "github:adinan-cenci/js-multimedia-player-interface"
   }
 }

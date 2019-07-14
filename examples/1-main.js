@@ -2,36 +2,66 @@ var PlayerAudio = require('../src/PlayerAudio.js');
 
 document.addEventListener('DOMContentLoaded', function()
 {
-    window.player                       = new PlayerAudio();
     window.mediaPlayer                  = document.getElementById('media-player');
     window.currentTime                  = document.getElementById('current-time');
     window.remainingTime                = document.getElementById('remaining-time');
     window.progressBar                  = document.getElementById('progress-bar');
+    window.logWindow                    = document.querySelector('#log div');
+
+    //--------------------
+
+    window.player                       = new PlayerAudio();
+
+    window.player.onPlay                = function()
+    {
+        log('Play');
+    }
+
+    window.player.onPause               = function()
+    {
+        log('Pause');
+    }
+
+    window.player.onEnded               = function()
+    {
+        log('Ended');
+    }
 
     window.player.onTimeupdate          = function()
     {
-        window.currentTime.innerHTML    = this.currentTimer;
-        window.remainingTime.innerHTML  = this.remainingTimer;
+        window.currentTime.innerHTML    = this.formattedCurrentTime;
+        window.remainingTime.innerHTML  = this.formattedRemainingTime;
         window.progressBar.value        = this.currentPercentage;
     }
 
-    window.player.onStateChange         = function(code)
+    window.player.onWaiting             = function()
     {
-        if (this.waiting) {
-            window.mediaPlayer.classList.add('waiting');
-        } else {
-            window.mediaPlayer.classList.remove('waiting');
-        }
+        window.mediaPlayer.classList.add('waiting');
+        log('Waiting');
     }
 
-    document.getElementById('toggle-play-payse').addEventListener('click', window.player.toggle.bind(window.player));
+    window.player.onPlaying             = function()
+    {
+        window.mediaPlayer.classList.remove('waiting');
+        log('Playing');
+    }
+
+    window.player.onError              = function(errorCode, errorMessage)
+    {
+        log(errorMessage);
+    }
+
+    //--------------------
+
+    document.getElementById('toggle-play-pause').addEventListener('click', window.player.toggle.bind(window.player));
 
     document.querySelectorAll('#media-list a').forEach(function(a)
     {
         a.addEventListener('click', function(e)
         {
             e.preventDefault();
-            window.player.setData({file:this.attributes.href.value}).then(() => {
+            window.player.setData({file:this.attributes.href.value}).then(() =>
+            {
                 window.player.play();
             });
 
@@ -47,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function()
         width           = this.offsetWidth;
         perc            = Math.ceil((x / width) * 100)+'%';
 
-        window.player.setCurrentTime(perc)
+        window.player.seek(perc)
     });
 
     document.getElementById('volume-slider').addEventListener('change', function()
@@ -56,3 +86,10 @@ document.addEventListener('DOMContentLoaded', function()
         window.player.setVolume(v);
     });
 });
+
+function log(msg)
+{
+    var p = document.createElement('p');
+    p.innerHTML = msg;
+    window.logWindow.append(p)
+}
