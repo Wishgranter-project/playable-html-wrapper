@@ -130,7 +130,7 @@ class PlayerAudio extends Player
     setData(data)
     {
         this.data = data;
-        this.newSource(data.file);
+        this.newSource(data.file || data.src);
 
         return new Promise((success, fail) =>
         {

@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function()
         a.addEventListener('click', function(e)
         {
             e.preventDefault();
-            window.player.setData({file:this.attributes.href.value}).then(() =>
+            window.player.setData({src:this.attributes.href.value}).then(() =>
             {
                 window.player.play();
             });
