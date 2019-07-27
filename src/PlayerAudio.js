@@ -19,7 +19,7 @@ class PlayerAudio extends Player
             this.state.paused       = false;
             this.state.playing      = true;
             this.state.waiting      = false;
-            this.onPlay();
+            this.dispatchEvent('play');
         });
 
         this.mediaP.addEventListener('pause', (evt) =>
@@ -27,13 +27,13 @@ class PlayerAudio extends Player
             this.state.playing      = false;
             this.state.paused       = true;
             this.state.reproducing  = false;
-            this.onPause();
+            this.dispatchEvent('pause');
         });
 
         this.mediaP.addEventListener('timeupdate', (evt) =>
         {
             this.state.reproducing  = true;
-            this.onTimeupdate();
+            this.dispatchEvent('timeupdate');
         });
 
         this.mediaP.addEventListener('ended', (evt) =>
@@ -42,12 +42,12 @@ class PlayerAudio extends Player
             this.state.paused       = true;
             this.state.reproducing  = false;
             this.state.waiting      = false;
-            this.onEnded();
+            this.dispatchEvent('ended');
         });
 
         this.mediaP.addEventListener('error', (evt) =>
         {
-            this.onError(0, 'Resource could not be loaded');
+            this.dispatchEvent('error', {errorCode: 0, errorMessage: 'Resource could not be loaded'});
         });
 
         this.mediaP.addEventListener('loadstart', (evt) => // start to load resource
@@ -65,13 +65,13 @@ class PlayerAudio extends Player
             this.state.reproducing  = false;
             this.state.buffering    = true;
             this.state.waiting      = true;
-            this.onWaiting();
+            this.dispatchEvent('waiting');
         });
 
         this.mediaP.addEventListener('playing', (evt) => // buffering is done, can play again
         {
             this.state.waiting      = false;
-            this.onPlaying();
+            this.dispatchEvent('playing');
         });
 
         this.mediaP.addEventListener('canplaythrough', (evt) =>
@@ -100,11 +100,12 @@ class PlayerAudio extends Player
         {
             this.state.buffering    = false;
         });
+    }
 
-        //loadeddata
-        //seeking
-        //seeked
-        //durationchange
+    mediaListen(evt, listener)
+    {
+        this.mediaP.addEventListener(evt, listener);
+        return this;
     }
 
     createMedia()

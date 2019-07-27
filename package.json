@@ -1,6 +1,7 @@
 {
   "name": "html-multimedia-wrapper",
-  "version": "1.0.0",
+  "author": "",
+  "version": "2.0.0",
   "description": "This is wrapper for html multimedia players.",
   "main": "index.js",
   "directories": {
@@ -14,14 +15,13 @@
     "url": "git+https://github.com/adinan-cenci/js-html-multimedia-wrapper.git"
   },
   "keywords": [],
-  "author": "",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/adinan-cenci/js-html-multimedia-wrapper/issues"
   },
   "homepage": "https://github.com/adinan-cenci/js-html-multimedia-wrapper#readme",
   "devDependencies": {
-    "webpack": "^4.35.3",
+    "webpack": "^4.38.0",
     "webpack-cli": "^3.3.6"
   },
   "dependencies": {
