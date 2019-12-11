@@ -1,6 +1,6 @@
 {
   "name": "html-multimedia-wrapper",
-  "author": "",
+  "author": "Adinan Cenci <adinancenci@protonmail.com>",
   "version": "2.0.0",
   "description": "This is wrapper for html multimedia players.",
   "main": "index.js",
