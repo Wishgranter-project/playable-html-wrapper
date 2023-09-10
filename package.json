@@ -1,7 +1,7 @@
 {
   "name": "html-multimedia-wrapper",
   "author": "Adinan Cenci <adinancenci@protonmail.com>",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "This is wrapper for html multimedia players.",
   "main": "index.js",
   "directories": {
@@ -14,17 +14,20 @@
     "type": "git",
     "url": "git+https://github.com/adinan-cenci/js-html-multimedia-wrapper.git"
   },
-  "keywords": [],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/adinan-cenci/js-html-multimedia-wrapper/issues"
   },
   "homepage": "https://github.com/adinan-cenci/js-html-multimedia-wrapper#readme",
   "devDependencies": {
-    "webpack": "^4.38.0",
-    "webpack-cli": "^3.3.6"
+    "gulp": "^4.0.2",
+    "gulp-rename": "^2.0.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-stream": "^7.0.0",
+    "y2be-player": "^3.5.4"
   },
   "dependencies": {
-    "multimedia-player-interface": "github:adinan-cenci/js-multimedia-player-interface"
+    "multimedia-player-interface": "git+ssh://git@github.com:adinan-cenci/js-multimedia-player-interface.git#3.1"
   }
 }
