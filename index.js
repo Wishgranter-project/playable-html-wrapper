@@ -1,4 +1,5 @@
-'use strict';
 
-module.exports.PlayerAudio = require('./src/PlayerAudio.js');
-module.exports.PlayerVideo = require('./src/PlayerVideo.js');
+import PlayerAudio from './src/PlayerAudio.js';
+import PlayerVideo from './src/PlayerVideo.js';
+
+export { PlayerAudio, PlayerVideo };

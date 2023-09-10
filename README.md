@@ -3,10 +3,13 @@ This an implementation of my [multimedia player interface](https://github.com/ad
 Example:
 
 ```js
-var AudioPlayer = require('html-multimedia-wrapper');
-var audio       = new AudioPlayer();
+import AudioPlayer from 'html-multimedia-wrapper';
+customElements.define('audio-player', AudioPlayer);
 
-player.setData({src: 'never-gonna-give-you-up.mp3'}).then( => 
+var player = document.createElement('audio-player');
+player.src = 'my-music/never-gonna-give-you-up.mp3';
+
+player.appendTo(document.body).then( => 
 {
    player.play();
 });
