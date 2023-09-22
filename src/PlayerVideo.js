@@ -8,9 +8,4 @@ class PlayerVideo extends PlayerAudio
     }
 }
 
-PlayerVideo.prototype.defaults =
-{
-    wrapperId: null
-};
-
 export default PlayerVideo;
