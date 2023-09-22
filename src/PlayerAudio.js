@@ -8,10 +8,16 @@ class PlayerAudio extends Foundation
         this.settings = {
             src: null
         };
-        // this.settings = {...PlayerYouTube.defaults, ...settings};
     }
 
     connectedCallback() 
+    {
+        if (!this.mediaP) {
+            this.setUp();
+        }
+    }
+
+    setUp() 
     {
         this.mediaP = this.createMedia();
         this.mediaP.src = this.settings.src;
@@ -37,6 +43,7 @@ class PlayerAudio extends Foundation
         this.mediaP.addEventListener('timeupdate', (evt) =>
         {
             this.state.isReproducing  = true;
+            this.state.isEnded        = false;
             this.fireEvent('player:timeupdate');
         });
 
@@ -46,6 +53,7 @@ class PlayerAudio extends Foundation
             this.state.isPaused       = true;
             this.state.isReproducing  = false;
             this.state.isWaiting      = false;
+            this.state.isEnded        = true;
             this.fireEvent('player:ended');
         });
 
@@ -156,13 +164,13 @@ class PlayerAudio extends Foundation
     /**
      * @inheritdoc
      */
-    setVolume(vol)
+    setVolume(volume)
     {
-        this.state.volume = vol;
+        this.state.volume = volume;
 
-        if (vol > 1) {
-            vol /= 100;
-        }
+        var vol = volume > 0
+            ? volume / 100
+            : volume;
 
         this.mediaP.volume = vol;
     }
