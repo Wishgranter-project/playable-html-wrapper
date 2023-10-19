@@ -1,9 +1,9 @@
-This an implementation of my [multimedia player interface](https://github.com/adinan-cenci/js-multimedia-player-interface) around HTML's native multimedia embedding elements.
+This an implementation of my [playable interface](https://github.com/adinan-cenci/playable) around HTML's native multimedia embedding elements.
 
 Example:
 
 ```js
-import AudioPlayer from 'html-multimedia-wrapper';
+import AudioPlayer from 'playable-html-wrapper';
 customElements.define('audio-player', AudioPlayer);
 
 var player = document.createElement('audio-player');

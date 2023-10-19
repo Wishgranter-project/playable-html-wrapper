@@ -1,6 +1,6 @@
-import { Foundation } from 'multimedia-player-interface';
+import Playable from 'playable';
 
-class PlayerAudio extends Foundation
+class PlayableAudio extends Playable
 {
     constructor() 
     {
@@ -12,13 +12,10 @@ class PlayerAudio extends Foundation
 
     connectedCallback() 
     {
-        if (!this.mediaP) {
-            this.setUp();
+        if (this.mediaP) {
+            return;
         }
-    }
 
-    setUp() 
-    {
         this.mediaP = this.createMedia();
         this.mediaP.src = this.settings.src;
 
@@ -181,4 +178,4 @@ class PlayerAudio extends Foundation
     }
 }
 
-export default PlayerAudio;
+export default PlayableAudio;

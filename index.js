@@ -1,5 +1,6 @@
 
-import PlayerAudio from './src/PlayerAudio.js';
-import PlayerVideo from './src/PlayerVideo.js';
+import PlayableAudio from './src/PlayableAudio.js';
+import PlayableVideo from './src/PlayableVideo.js';
 
-export { PlayerAudio, PlayerVideo };
+export default PlayableAudio;
+export { PlayableVideo };

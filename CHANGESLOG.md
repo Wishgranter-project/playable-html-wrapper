@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 4.0.0 - 2023-10-19
+### Changed
+- Changed the library's name.
+
+---
+
 ## 3.1.0 - 2023-09-22
 ### Added
 - `preppendTo()` and `appendAfter()`.

@@ -1,6 +1,6 @@
-import PlayerAudio from '../src/PlayerAudio.js';
+import PlayableAudio from '../src/PlayableAudio.js';
 
-customElements.define('audio-player', PlayerAudio);
+customElements.define('audio-player', PlayableAudio);
 
 document.addEventListener('DOMContentLoaded', function()
 {

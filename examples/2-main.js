@@ -1,6 +1,6 @@
-import PlayerVideo from '../src/PlayerVideo.js';
+import PlayableVideo from '../src/PlayableVideo.js';
 
-customElements.define('video-player', PlayerVideo);
+customElements.define('video-player', PlayableVideo);
 
 document.addEventListener('DOMContentLoaded', function()
 {
