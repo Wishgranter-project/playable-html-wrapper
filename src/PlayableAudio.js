@@ -26,7 +26,7 @@ class PlayableAudio extends Playable
             this.state.isPaused       = false;
             this.state.isPlaying      = true;
             this.state.isWaiting      = false;
-            this.fireEvent('player:play');
+            this.fireEvent('playable:play');
         });
 
         this.mediaP.addEventListener('pause', (evt) =>
@@ -34,14 +34,14 @@ class PlayableAudio extends Playable
             this.state.isPlaying      = false;
             this.state.isPaused       = true;
             this.state.isReproducing  = false;
-            this.fireEvent('player:pause');
+            this.fireEvent('playable:pause');
         });
 
         this.mediaP.addEventListener('timeupdate', (evt) =>
         {
             this.state.isReproducing  = true;
             this.state.isEnded        = false;
-            this.fireEvent('player:timeupdate');
+            this.fireEvent('playable:timeupdate');
         });
 
         this.mediaP.addEventListener('ended', (evt) =>
@@ -51,12 +51,12 @@ class PlayableAudio extends Playable
             this.state.isReproducing  = false;
             this.state.isWaiting      = false;
             this.state.isEnded        = true;
-            this.fireEvent('player:ended');
+            this.fireEvent('playable:ended');
         });
 
         this.mediaP.addEventListener('error', (evt) =>
         {
-            this.fireEvent('player:error', {errorCode: 0, errorMessage: 'Resource could not be loaded'});
+            this.fireEvent('playable:error', {errorCode: 0, errorMessage: 'Resource could not be loaded'});
         });
 
         this.mediaP.addEventListener('loadstart', (evt) => // start to load resource
@@ -74,13 +74,13 @@ class PlayableAudio extends Playable
             this.state.isReproducing  = false;
             this.state.isBuffering    = true;
             this.state.isWaiting      = true;
-            this.fireEvent('player:waiting');
+            this.fireEvent('playable:waiting');
         });
 
         this.mediaP.addEventListener('playing', (evt) => // buffering is done, can play again
         {
             this.state.isWaiting      = false;
-            this.fireEvent('player:playing');
+            this.fireEvent('playable:playing');
         });
 
         this.mediaP.addEventListener('canplaythrough', (evt) =>
