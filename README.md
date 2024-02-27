@@ -1,4 +1,4 @@
-This an implementation of my [playable interface](https://github.com/adinan-cenci/playable) around HTML's native multimedia embedding elements.
+This an implementation of my [playable interface](https://github.com/wishgranter-project/playable) around HTML's native multimedia embedding elements.
 
 Example:
 
@@ -14,4 +14,3 @@ player.appendTo(document.body).then( =>
    player.play();
 });
 ```
-
